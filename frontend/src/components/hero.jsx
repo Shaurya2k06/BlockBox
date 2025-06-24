@@ -65,14 +65,11 @@ function Hero({ onNavigate }) {
             {/* Hero Content with staggered animations */}
             <div className="container mx-auto px-6 py-20 text-center relative z-10">
                 <div className="max-w-6xl mx-auto">
-                    {/* Premium Badge with entrance animation */}
-                    <div className="inline-flex items-center gap-2 mb-8 px-6 py-3 bg-gradient-to-r from-blue-600/20 to-purple-600/20 border border-blue-500/30 rounded-full backdrop-blur-md animate-fade-in-down animate-glow-pulse">
-                        <div className="w-2 h-2 bg-blue-400 rounded-full animate-pulse animate-scale-pulse"></div>
-                        <span className="text-blue-300 font-medium text-sm animate-shimmer">🛡️ Enterprise-Grade Security • Blockchain-Powered</span>
-                    </div>
+
+
 
                     {/* Hero Heading with staggered entrance */}
-                    <div className="mb-12">
+                    <div className="mb-25">
                         <h1 className="text-4xl md:text-6xl lg:text-7xl font-black text-white mb-6 leading-tight tracking-tight animate-fade-in-up" style={{animationDelay: '0.2s'}}>
                             <span className="inline-block animate-bounce-in" style={{animationDelay: '0.3s'}}>The</span>{' '}
                             <span className="inline-block animate-bounce-in" style={{animationDelay: '0.4s'}}>Future</span>{' '}

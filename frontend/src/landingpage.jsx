@@ -1,6 +1,4 @@
 import React from 'react';
-import About from "./components/about.jsx";
-
 import Hero from "./components/hero.jsx";
 
 function LandingPage({ onNavigate }) {
