@@ -43,7 +43,7 @@ BlockBox is a cutting-edge Web3 application that provides secure, decentralized 
 
 1. **Clone the repository**:
 ```bash
-git clone https://github.com/username/BlockBox.git
+git clone https://github.com/shaurya2k06/BlockBox.git
 cd BlockBox/frontend
 ```
 
