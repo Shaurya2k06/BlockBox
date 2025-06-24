@@ -64,8 +64,14 @@ class EncryptionService {
       
       reader.onload = (e) => {
         try {
-          const fileData = e.target.result;
-          const encrypted = this.encrypt(fileData, key);
+          // Read as ArrayBuffer for binary files
+          const arrayBuffer = e.target.result;
+          const uint8Array = new Uint8Array(arrayBuffer);
+          const binaryString = Array.from(uint8Array).map(byte => String.fromCharCode(byte)).join('');
+          
+          // Convert to base64 for encryption
+          const base64Data = btoa(binaryString);
+          const encrypted = this.encrypt(base64Data, key);
           
           if (encrypted.success) {
             resolve({
@@ -94,7 +100,8 @@ class EncryptionService {
         });
       };
       
-      reader.readAsDataURL(file);
+      // Read as ArrayBuffer instead of DataURL for better binary handling
+      reader.readAsArrayBuffer(file);
     });
   }
 
@@ -107,8 +114,15 @@ class EncryptionService {
         return decrypted;
       }
       
+      // Convert from base64 back to binary
+      const binaryString = atob(decrypted.data);
+      const uint8Array = new Uint8Array(binaryString.length);
+      for (let i = 0; i < binaryString.length; i++) {
+        uint8Array[i] = binaryString.charCodeAt(i);
+      }
+      
       // Create blob from decrypted data
-      const blob = this.dataURLToBlob(decrypted.data);
+      const blob = new Blob([uint8Array], { type: originalType });
       
       return {
         success: true,

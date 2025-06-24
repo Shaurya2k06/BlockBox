@@ -113,12 +113,29 @@ const BlockBoxDashboard = ({ onNavigate }) => {
   }, [isConnected, account]);
 
   // Mock IPFS upload function (now using ipfsService)
-  const uploadToIPFS = async (encryptedData, filename) => {
-    const result = await ipfsService.uploadFile(encryptedData, { name: filename });
-    if (result.success) {
-      return result.cid;
+  const uploadToIPFS = async (encryptedData, filename, originalFile) => {
+    try {
+      // Create a blob from the encrypted data
+      const blob = new Blob([encryptedData], { type: 'application/octet-stream' });
+      const encryptedFile = new File([blob], `${filename}.encrypted`, {
+        type: 'application/octet-stream'
+      });
+      
+      const result = await ipfsService.uploadFile(encryptedFile, { 
+        name: filename,
+        encrypted: 'true', // Convert boolean to string
+        originalType: originalFile.type,
+        originalSize: originalFile.size.toString() // Convert number to string for consistency
+      });
+      
+      if (result.success) {
+        return result.cid;
+      }
+      throw new Error(result.error || 'Failed to upload to IPFS');
+    } catch (error) {
+      console.error('IPFS upload error:', error);
+      throw new Error(`IPFS upload failed: ${error.message || 'Unknown error'}`);
     }
-    throw new Error(result.error);
   };
 
   // Handle wallet connection
@@ -171,9 +188,9 @@ const BlockBoxDashboard = ({ onNavigate }) => {
   const encryptFile = async (file, key) => {
     const result = await encryptionService.encryptFile(file, key);
     if (result.success) {
-      return result.data;
+      return result;
     }
-    throw new Error(result.error);
+    throw new Error(result.error || 'Encryption failed');
   };
 
   // Decrypt file using encryption service
@@ -194,38 +211,55 @@ const BlockBoxDashboard = ({ onNavigate }) => {
     
     try {
       for (const file of selectedFiles) {
-        // Encrypt file
-        const encryptedData = await encryptFile(file, encryptionKey);
-        
-        // Upload to IPFS
-        const cid = await uploadToIPFS(encryptedData, file.name);
-        
-        // Create file record
-        const fileRecord = {
-          id: Date.now() + Math.random(),
-          name: file.name,
-          size: file.size,
-          type: file.type,
-          cid: cid,
-          encrypted: true,
-          timestamp: Date.now(),
-          encryptedData: encryptedData,
-          walletAddress: account
-        };
-        
-        // Update files list
-        const updatedFiles = [...files, fileRecord];
-        setFiles(updatedFiles);
-        updateStats(updatedFiles);
-        
-        // Save to localStorage
-        localStorage.setItem(`BlockBox_files_${account}`, JSON.stringify(updatedFiles));
+        try {
+          console.log(`Starting upload for ${file.name}...`);
+          
+          // Encrypt file
+          const encryptedResult = await encryptFile(file, encryptionKey);
+          
+          console.log(`File ${file.name} encrypted successfully`, encryptedResult);
+          
+          // Upload to IPFS
+          const cid = await uploadToIPFS(encryptedResult.data, file.name, file);
+          
+          console.log(`File ${file.name} uploaded to IPFS with CID: ${cid}`);
+          
+          // Create file record
+          const fileRecord = {
+            id: Date.now() + Math.random(),
+            name: file.name,
+            size: file.size,
+            type: file.type,
+            cid: cid,
+            encrypted: true,
+            timestamp: Date.now(),
+            encryptedData: encryptedResult.data,
+            walletAddress: account
+          };
+          
+          // Update files list
+          const updatedFiles = [...files, fileRecord];
+          setFiles(updatedFiles);
+          updateStats(updatedFiles);
+          
+          // Save to localStorage
+          localStorage.setItem(`BlockBox_files_${account}`, JSON.stringify(updatedFiles));
+          
+          console.log(`File ${file.name} processing completed successfully`);
+          
+        } catch (fileError) {
+          console.error(`Error uploading ${file.name}:`, fileError);
+          showNotification(`Failed to upload ${file.name}: ${fileError.message || 'Unknown error'}`, 'error');
+        }
       }
       
-      showNotification(`${selectedFiles.length} file(s) uploaded successfully!`, 'success');
+      const successCount = selectedFiles.length;
+      if (successCount > 0) {
+        showNotification(`${successCount} file(s) uploaded successfully!`, 'success');
+      }
     } catch (error) {
       console.error('Upload error:', error);
-      showNotification('Upload failed: ' + error.message, 'error');
+      showNotification(`Upload failed: ${error.message || 'Unknown error'}`, 'error');
     } finally {
       setIsUploading(false);
       if (fileInputRef.current) {
