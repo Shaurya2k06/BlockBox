@@ -407,7 +407,11 @@ const BlockBoxDashboard = ({ onNavigate }) => {
                     }}
                     className="relative"
                   >
-                    <MdSecurity className="text-4xl text-slate-400" />
+                    <img 
+                      src="/logo.png" 
+                      alt="BlockBox Logo" 
+                      className="w-10 h-10 text-slate-400"
+                    />
                     <motion.div
                       className="absolute inset-0 bg-slate-400/20 rounded-full blur-lg"
                       animate={{
@@ -565,7 +569,11 @@ const BlockBoxDashboard = ({ onNavigate }) => {
                 }}
                 className="mb-8"
               >
-                <MdSecurity className="mx-auto text-6xl text-slate-400" />
+                <img 
+                  src="/logo.png" 
+                  alt="BlockBox Logo" 
+                  className="mx-auto w-16 h-16"
+                />
               </motion.div>
               
               <motion.h2 
@@ -669,7 +677,11 @@ const BlockBoxDashboard = ({ onNavigate }) => {
                           ease: "linear"
                         }}
                       >
-                        <stat.icon className="text-slate-400" size={20} />
+                        <img 
+                          src="/logo.png" 
+                          alt="BlockBox Logo" 
+                          className="mr-2 w-3 h-3"
+                        />
                       </motion.div>
                     </div>
                     
@@ -815,7 +827,11 @@ const BlockBoxDashboard = ({ onNavigate }) => {
                           repeat: Infinity
                         }}
                       >
-                        <MdShield className="mr-2 text-emerald-400" size={12} />
+                        <img 
+                          src="/logo.png" 
+                          alt="BlockBox Logo" 
+                          className="mr-2 w-3 h-3"
+                        />
                       </motion.div>
                       <p className="text-xs text-slate-500">
                         Generated from your wallet address
@@ -929,7 +945,11 @@ const BlockBoxDashboard = ({ onNavigate }) => {
                                     repeat: Infinity,
                                   }}
                                 >
-                                  <MdLock className="text-emerald-400" size={14} />
+                                  <img 
+                                    src="/logo.png" 
+                                    alt="BlockBox Logo" 
+                                    className="mr-2 w-3 h-3"
+                                  />
                                 </motion.div>
                               )}
                             </div>
