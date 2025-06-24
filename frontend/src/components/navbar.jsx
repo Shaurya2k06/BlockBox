@@ -27,7 +27,7 @@ const Navbar = ({ onNavigate }) => {
             {/* Logo */}
             <div className="flex items-center space-x-2">
               <Shield className="h-6 w-6 text-purple-400" />
-              <span className="text-lg font-bold text-white">ByteVault</span>
+              <span className="text-lg font-bold text-white">BlockBox</span>
             </div>
 {/* 
             Dock Navigation
@@ -95,7 +95,7 @@ const Navbar = ({ onNavigate }) => {
               {/* Logo */}
               <div className="flex items-center space-x-2">
                 <Shield className="h-6 w-6 text-purple-400" />
-                <span className="text-lg font-bold text-white">ByteVault</span>
+                <span className="text-lg font-bold text-white">BlockBox</span>
                 <Badge className="bg-purple-600/20 text-purple-300 border-purple-600 text-xs">
                   Beta
                 </Badge>
@@ -173,7 +173,7 @@ const Navbar = ({ onNavigate }) => {
                           setMobileMenuOpen(false);
                         }}
                       >
-                        Launch ByteVault
+                        Launch BlockBox
                       </Button>
                       <Button 
                         variant="outline"

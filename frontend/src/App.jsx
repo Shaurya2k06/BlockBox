@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import LandingPage from './landingpage.jsx';
-import ByteVaultDashboard from './components/dashboard.jsx';
+import BlockBoxDashboard from './components/dashboard.jsx';
 
 function App() {
   const [currentPage, setCurrentPage] = useState('landing');
@@ -12,7 +12,7 @@ function App() {
   return (
     <div className="App">
       {currentPage === 'landing' && <LandingPage onNavigate={navigateTo} />}
-      {currentPage === 'dashboard' && <ByteVaultDashboard onNavigate={navigateTo} />}
+      {currentPage === 'dashboard' && <BlockBoxDashboard onNavigate={navigateTo} />}
     </div>
   );
 }
