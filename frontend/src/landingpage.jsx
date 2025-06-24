@@ -1,18 +1,13 @@
 import React from 'react';
 import About from "./components/about.jsx";
-import Features from "./components/features.jsx";
-import Hero from "./components/hero.jsx";
-import Navbar from "./components/navbar.jsx";
-import Footer from "./components/footer.jsx";
 
-function LandingPage() {
+import Hero from "./components/hero.jsx";
+
+function LandingPage({ onNavigate }) {
     return (
         <div>
-            {/* <Navbar /> */}
-            <Hero />
-            {/* <Features /> */}
-            {/* <About /> */}
-            {/* <Footer /> */}
+            <Hero onNavigate={onNavigate} />
+
         </div>
     );
 }

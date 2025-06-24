@@ -1,11 +1,18 @@
-import React from 'react';
+import React, { useState } from 'react';
 import LandingPage from './landingpage.jsx';
-
+import ByteVaultDashboard from './components/dashboard.jsx';
 
 function App() {
+  const [currentPage, setCurrentPage] = useState('landing');
+
+  const navigateTo = (page) => {
+    setCurrentPage(page);
+  };
+
   return (
     <div className="App">
-      <LandingPage />
+      {currentPage === 'landing' && <LandingPage onNavigate={navigateTo} />}
+      {currentPage === 'dashboard' && <ByteVaultDashboard onNavigate={navigateTo} />}
     </div>
   );
 }

@@ -15,7 +15,7 @@ import {
   X
 } from "lucide-react"
 
-const Navbar = () => {
+const Navbar = ({ onNavigate }) => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
 
   return (
@@ -29,8 +29,8 @@ const Navbar = () => {
               <Shield className="h-6 w-6 text-purple-400" />
               <span className="text-lg font-bold text-white">ByteVault</span>
             </div>
-
-            {/* Dock Navigation */}
+{/* 
+            Dock Navigation
             <Dock className="bg-transparent border-0 shadow-none">
               <DockIcon className="bg-slate-800/50 hover:bg-purple-600/20 transition-all duration-300">
                 <a href="#home" className="flex items-center justify-center w-full h-full">
@@ -67,13 +67,22 @@ const Navbar = () => {
                   <Github className="h-4 w-4 text-gray-300 hover:text-purple-400 transition-colors" />
                 </a>
               </DockIcon>
-            </Dock>
+            </Dock> */}
 
-            {/* Connect Wallet Button */}
-            <Button className="bg-purple-600 hover:bg-purple-700 text-white shadow-lg shadow-purple-600/30 transition-all duration-300">
-              <Wallet className="mr-2 h-4 w-4" />
-              Connect
-            </Button>
+            {/* Action Buttons */}
+            <div className="flex items-center space-x-3">
+              <Button 
+                variant="outline"
+                className="border-purple-600/50 text-purple-300 hover:bg-purple-600/10 shadow-lg shadow-purple-600/20"
+                onClick={() => onNavigate && onNavigate('dashboard')}
+              >
+                Launch App
+              </Button>
+              <Button className="bg-purple-600 hover:bg-purple-700 text-white shadow-lg shadow-purple-600/30 transition-all duration-300">
+                <Wallet className="mr-2 h-4 w-4" />
+                Connect
+              </Button>
+            </div>
           </div>
         </div>
       </nav>
@@ -156,10 +165,24 @@ const Navbar = () => {
                   </a>
                   
                   <div className="pt-3 border-t border-slate-700/50">
-                    <Button className="w-full bg-purple-600 hover:bg-purple-700 text-white shadow-lg shadow-purple-600/30">
-                      <Wallet className="mr-2 h-4 w-4" />
-                      Connect Wallet
-                    </Button>
+                    <div className="space-y-2">
+                      <Button 
+                        className="w-full bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 text-white shadow-lg shadow-purple-600/30"
+                        onClick={() => {
+                          onNavigate && onNavigate('dashboard');
+                          setMobileMenuOpen(false);
+                        }}
+                      >
+                        Launch ByteVault
+                      </Button>
+                      <Button 
+                        variant="outline"
+                        className="w-full border-purple-600/50 text-purple-300 hover:bg-purple-600/10"
+                      >
+                        <Wallet className="mr-2 h-4 w-4" />
+                        Connect Wallet
+                      </Button>
+                    </div>
                   </div>
                 </div>
               </div>

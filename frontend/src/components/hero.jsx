@@ -3,7 +3,7 @@ import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
 import { VideoText } from "@/components/magicui/video-text"
 
-function Hero() {
+function Hero({ onNavigate }) {
     return (
         <section id="home" className="relative min-h-screen flex items-center justify-center overflow-hidden">
             {/* Futuristic Gradient Mesh Background */}
@@ -104,11 +104,12 @@ function Hero() {
                         <Button 
                             size="lg" 
                             className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white shadow-2xl shadow-blue-500/25 px-10 py-5 text-lg h-auto rounded-full font-semibold transition-all duration-300 hover:shadow-3xl hover:shadow-blue-500/40 hover:scale-105 animate-pulse-button animate-glow-pulse hover:animate-wiggle"
+                            onClick={() => onNavigate && onNavigate('dashboard')}
                         >
                             <svg className="mr-3 h-5 w-5 animate-bounce-gentle" fill="currentColor" viewBox="0 0 20 20">
                                 <path fillRule="evenodd" d="M3 17a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM6.293 6.707a1 1 0 010-1.414l3-3a1 1 0 011.414 0l3 3a1 1 0 01-1.414 1.414L11 5.414V13a1 1 0 11-2 0V5.414L7.707 6.707a1 1 0 01-1.414 0z" clipRule="evenodd" />
                             </svg>
-                            Launch Platform
+                            Launch ByteVault
                         </Button>
                         <Button 
                             size="lg" 
