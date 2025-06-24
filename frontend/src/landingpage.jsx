@@ -8,11 +8,11 @@ import Footer from "./components/footer.jsx";
 function LandingPage() {
     return (
         <div>
-            <Navbar />
+            {/* <Navbar /> */}
             <Hero />
-            <Features />
-            <About />
-            <Footer />
+            {/* <Features /> */}
+            {/* <About /> */}
+            {/* <Footer /> */}
         </div>
     );
 }
